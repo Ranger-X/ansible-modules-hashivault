@@ -22,6 +22,9 @@ options:
     policies:
         description:
             - List of Policy to associate with this token.
+    disallowed_policies:
+        description:
+            - Specifies the list of disallowed policies.
     metadata:
         description:
             - Metadata to associate with the token
@@ -82,6 +85,7 @@ def main():
     argspec['role'] = dict(required=False, type='str')
     argspec['id'] = dict(required=False, type='str')
     argspec['policies'] = dict(required=True, type='list')
+    argspec['disallowed_policies'] = dict(required=False, type='list')
     argspec['metadata'] = dict(required=False, type='str')
     argspec['no_parent'] = dict(required=False, type='bool', default=False)
     argspec['lease'] = dict(required=False, type='str')
@@ -108,6 +112,7 @@ def hashivault_token_create(params):
     role = params.get('role')
     token_id = params.get('id')
     policies = params.get('policies')
+    disallowed_policies = params.get('disallowed_policies')
     metadata = params.get('metadata')
     no_parent = params.get('no_parent')
     lease = params.get('lease')
@@ -125,6 +130,7 @@ def hashivault_token_create(params):
         role=role,
         token_id=token_id,
         policies=policies,
+        disallowed_policies=disallowed_policies,
         meta=metadata,
         no_parent=no_parent,
         lease=lease,
